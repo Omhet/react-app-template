@@ -5,7 +5,7 @@
     "license": "MIT",
     "scripts": {
         "start": "webpack serve -c ./webpack.dev.js",
-        "lint:code": "eslint . --ext .js,.jsx,.ts,.tsx",
+        "lint:code": "tsc --noEmit && eslint . --ext .js,.jsx,.ts,.tsx",
         "lint:style": "stylelint src/**/*.{css,scss}",
         "prettier": "prettier --write src/**/*.{js,jsx,ts,tsx,css,scss,json,html}",
         "build": "webpack -c ./webpack.prod.js"
