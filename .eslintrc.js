@@ -3,18 +3,13 @@ module.exports = {
         node: true,
         commonjs: true,
         browser: true,
-        es6: true
+        es6: true,
     },
     root: true,
     parser: '@typescript-eslint/parser',
-    plugins: [
-        '@typescript-eslint'
-    ],
-    extends: [
-        'eslint:recommended',
-        'plugin:@typescript-eslint/recommended'
-    ],
+    plugins: ['@typescript-eslint'],
+    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
     rules: {
-        '@typescript-eslint/no-var-requires': 0
-    }
-}
+        '@typescript-eslint/no-var-requires': 0,
+    },
+};
