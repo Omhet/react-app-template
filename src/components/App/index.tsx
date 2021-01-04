@@ -1,7 +1,7 @@
 import React from "react";
 import { FunctionComponent } from "react";
 
-const App: FunctionComponent = () => {
+const App: FunctionComponet = () => {
     return <div>Hello World!</div>
 }
 
