@@ -16,11 +16,6 @@ const store = configureStore({
 
 export type AppState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
-export type AppThunk = ThunkAction<
-    undefined,
-    AppState,
-    unknown,
-    Action<string>
->;
+export type AppThunk = ThunkAction<void, AppState, unknown, Action<string>>;
 
 export default store;

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AppThunk } from '..';
 
 interface State {
     data: string;
@@ -8,7 +9,7 @@ const initialState: State = {
     data: 'data',
 };
 
-const example = createSlice({
+const slice = createSlice({
     name: 'example',
     initialState,
     reducers: {
@@ -18,6 +19,11 @@ const example = createSlice({
     },
 });
 
-export const exampleActions = example.actions;
+export const appendData = (data: string): AppThunk => (dispatch, getState) => {
+    const { example } = getState();
+    dispatch(exampleActions.setData(`${example.data}-${data}`));
+};
 
-export default example.reducer;
+export const exampleActions = slice.actions;
+
+export default slice.reducer;
