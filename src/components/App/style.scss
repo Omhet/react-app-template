@@ -1,5 +1,8 @@
 .main {
-    color: coral;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: #333;
 }
 
 .block {

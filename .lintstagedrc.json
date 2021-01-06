@@ -1,5 +1,9 @@
 {
-    "*.{js,jsx,ts,tsx}": ["prettier --write", "yarn lint:code", "jest"],
+    "*.{js,jsx,ts,tsx}": [
+        "prettier --write",
+        "yarn lint:code",
+        "jest --passWithNoTests"
+    ],
     "*.{css,scss}": ["prettier --write", "yarn lint:style"],
     "*.{json,html}": ["prettier --write"]
 }

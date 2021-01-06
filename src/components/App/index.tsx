@@ -1,5 +1,6 @@
 import React from 'react';
 import { FunctionComponent } from 'react';
+import SearchMoviesDropdown from '../../containers/SearchMoviesDropdown';
 import style from './style.scss';
 
 export interface AppProps {
@@ -13,6 +14,7 @@ const App: FunctionComponent<AppProps> = ({ data, onAppendClick }) => {
             Hello World
             <div className={style.block}>{data}</div>
             <button onClick={onAppendClick}>Append</button>
+            <SearchMoviesDropdown />
         </div>
     );
 };
