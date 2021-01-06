@@ -1,5 +1,5 @@
 {
-    "*.{js,jsx,ts,tsx}": ["prettier --write", "yarn lint:code"],
+    "*.{js,jsx,ts,tsx}": ["prettier --write", "yarn lint:code", "jest"],
     "*.{css,scss}": ["prettier --write", "yarn lint:style"],
     "*.{json,html}": ["prettier --write"]
 }
