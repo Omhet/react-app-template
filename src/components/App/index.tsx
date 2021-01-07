@@ -8,12 +8,9 @@ export interface AppProps {
     onAppendClick(): void;
 }
 
-const App: FunctionComponent<AppProps> = ({ data, onAppendClick }) => {
+const App: FunctionComponent<AppProps> = () => {
     return (
         <div className={style.main}>
-            Hello World
-            <div className={style.block}>{data}</div>
-            <button onClick={onAppendClick}>Append</button>
             <SearchMoviesDropdown />
         </div>
     );
