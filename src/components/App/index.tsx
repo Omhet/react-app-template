@@ -1,6 +1,6 @@
 import React from 'react';
 import { FunctionComponent } from 'react';
-import SearchMoviesDropdown from '../../containers/SearchMoviesDropdown';
+import SearchMoviesDropdown from '../SearchMoviesDropdown';
 import style from './style.scss';
 
 export interface AppProps {

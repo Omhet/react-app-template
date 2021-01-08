@@ -1,31 +1,9 @@
 import { Input, Select } from 'antd';
 import { LabeledValue } from 'antd/lib/select';
-import axios from 'axios';
-import { debounce } from 'lodash-es';
-import React, { FunctionComponent, useCallback, useState } from 'react';
-
-export const fetchMovies = async ({
-    query,
-}: {
-    query: string;
-}): Promise<string[]> => {
-    const { data } = await axios.get(
-        'https://api.themoviedb.org/3/search/movie',
-        {
-            params: {
-                api_key: process.env.TMDB_API_KEY,
-                language: 'en-US',
-                query,
-                page: '1',
-                include_adult: 'false',
-            },
-        }
-    );
-    return data.results.map(({ title }: { title: string }) => title);
-};
-
-const useDebounce = (callback: (...args: any) => any, delay: number) =>
-    useCallback(debounce(callback, delay), [delay]);
+import React, { FunctionComponent, useState } from 'react';
+import { fetchMovies } from '../../api';
+import { useDebounce } from '../../hooks';
+import style from './style.scss';
 
 const Container: FunctionComponent = () => {
     const [options, setOptions] = useState<LabeledValue[]>([]);
@@ -53,22 +31,21 @@ const Container: FunctionComponent = () => {
     }, delay);
 
     return (
-        <>
+        <div className={style.main}>
             <Select
                 showSearch
                 placeholder="Search a movie"
-                style={{ width: 200 }}
                 loading={loading}
                 options={options}
                 onSearch={handleInputChange}
+                className={style.select}
             />
             <Input
-                style={{ width: 200 }}
                 type="number"
                 value={delay}
                 onChange={(e) => setDelay(Number(e.target.value))}
             />
-        </>
+        </div>
     );
 };
 
