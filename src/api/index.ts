@@ -1,10 +1,15 @@
 import axios from 'axios';
 
+interface Movie {
+    title: string;
+    id: number;
+}
+
 export const fetchMovies = async ({
     query,
 }: {
     query: string;
-}): Promise<string[]> => {
+}): Promise<Movie[]> => {
     const { data } = await axios.get(
         'https://api.themoviedb.org/3/search/movie',
         {
@@ -17,5 +22,8 @@ export const fetchMovies = async ({
             },
         }
     );
-    return data.results.map(({ title }: { title: string }) => title);
+    return data.results.map(({ title, id }: Movie) => ({
+        title,
+        id,
+    }));
 };

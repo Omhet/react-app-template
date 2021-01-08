@@ -8,16 +8,17 @@ import style from './style.scss';
 const Container: FunctionComponent = () => {
     const [delay, setDelay] = useState(1000);
 
-    const { results, loading, handleInputChange } = useSearch<string>(
+    const { results, loading, handleInputChange } = useSearch(
         fetchMovies,
         delay
     );
 
-    const options: LabeledValue[] = results.map((title, index) => ({
-        value: title,
-        label: title,
-        key: String(index),
-    }));
+    const options: LabeledValue[] =
+        results?.map(({ title, id }) => ({
+            value: title,
+            label: title,
+            key: String(id),
+        })) ?? [];
 
     return (
         <div className={style.main}>
