@@ -8,7 +8,7 @@ import style from './style.scss';
 const Container: FunctionComponent = () => {
     const [delay, setDelay] = useState(1000);
 
-    const { results, loading, handleInputChange } = useSearch(
+    const { results, loading, query, handleInputChange } = useSearch(
         fetchMovies,
         delay
     );
@@ -26,6 +26,7 @@ const Container: FunctionComponent = () => {
                 showSearch
                 placeholder="Search a movie"
                 loading={loading}
+                open={query.length > 0}
                 options={options}
                 onSearch={handleInputChange}
                 className={style.select}

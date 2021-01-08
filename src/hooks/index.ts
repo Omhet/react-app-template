@@ -30,7 +30,7 @@ export const useSearch = <T>(
 
     return {
         results,
-        loading,
+        loading: loading && query.length > 0,
         query,
         handleInputChange,
     };
