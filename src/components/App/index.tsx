@@ -1,5 +1,6 @@
-import React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
+import classnames from 'classnames';
+import { ThemeContext } from '../../context/theme';
 import SearchMoviesDropdown from '../SearchMoviesDropdown';
 import SearchMoviesDropdownAlt from '../SearchMoviesDropdownAlt';
 import style from './style.scss';
@@ -10,8 +11,10 @@ export interface AppProps {
 }
 
 const App: FunctionComponent<AppProps> = () => {
+    const theme = useContext(ThemeContext);
+
     return (
-        <div className={style.main}>
+        <div className={classnames(style.main, theme)}>
             <SearchMoviesDropdown />
             <SearchMoviesDropdownAlt />
         </div>
