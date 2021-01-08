@@ -1,9 +1,26 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 
-const smp = new SpeedMeasurePlugin();
+const stats = {
+    builtAt: false,
+    assetsSort: '!size',
+    entrypoints: false,
+    colors: true,
+    hash: false,
+    version: false,
+    timings: false,
+    assets: false,
+    chunks: false,
+    modules: false,
+    reasons: false,
+    children: false,
+    source: false,
+    errors: false,
+    errorDetails: false,
+    warnings: false,
+    publicPath: false,
+};
 
 const config = {
     entry: path.join(__dirname, 'src', 'index.tsx'),
@@ -54,16 +71,10 @@ const config = {
             template: path.join(__dirname, 'src', 'index.html'),
         }),
     ],
-    stats: {
-        children: false,
-        builtAt: false,
-        assetsSort: '!size',
-        entrypoints: false,
-        hash: false,
-        modules: false,
-        version: false,
-        timings: false,
-    },
+    stats,
 };
 
-module.exports = smp.wrap(config);
+module.exports = {
+    config,
+    stats,
+};
