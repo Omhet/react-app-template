@@ -1,24 +1,24 @@
 import React, { FunctionComponent } from 'react';
-import { fetchMovies } from '../../api';
+import { fetchUsers } from '../../api';
 import { useSearch } from '../../hooks';
 import style from './style.scss';
 
 const Container: FunctionComponent = () => {
     const { results, loading, query, handleInputChange } = useSearch(
-        fetchMovies,
+        fetchUsers,
         1000
     );
 
     const options =
-        results?.map(({ title, id }) => ({
-            label: title,
+        results?.map(({ name, id }) => ({
+            label: name,
             key: String(id),
         })) ?? [];
 
     return (
         <div className={style.main}>
             <input
-                placeholder="Search movies"
+                placeholder="Search users"
                 onChange={(event) => handleInputChange(event.target.value)}
             />
             {query.length > 0 && (

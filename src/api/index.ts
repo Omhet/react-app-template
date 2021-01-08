@@ -27,3 +27,18 @@ export const fetchMovies = async ({
         id,
     }));
 };
+
+interface User {
+    name: string;
+    id: number;
+}
+
+export const fetchUsers = async (): Promise<User[]> => {
+    const { data } = await axios.get(
+        'https://jsonplaceholder.typicode.com/users'
+    );
+    return data.map(({ name, id }: User) => ({
+        name,
+        id,
+    }));
+};
