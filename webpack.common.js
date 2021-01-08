@@ -27,7 +27,11 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            modules: true,
+                            modules: {
+                                mode: 'local',
+                                localIdentName:
+                                    '[folder]__[local]--[hash:base64:5]',
+                            },
                         },
                     },
                     'sass-loader',
@@ -47,4 +51,14 @@ module.exports = {
             template: path.join(__dirname, 'src', 'index.html'),
         }),
     ],
+    stats: {
+        children: false,
+        builtAt: false,
+        assetsSort: '!size',
+        entrypoints: false,
+        hash: false,
+        modules: false,
+        version: false,
+        timings: false,
+    },
 };

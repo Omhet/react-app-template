@@ -2,33 +2,22 @@ import { Input, Select } from 'antd';
 import { LabeledValue } from 'antd/lib/select';
 import React, { FunctionComponent, useState } from 'react';
 import { fetchMovies } from '../../api';
-import { useDebounce } from '../../hooks';
+import { useSearch } from '../../hooks';
 import style from './style.scss';
 
 const Container: FunctionComponent = () => {
-    const [options, setOptions] = useState<LabeledValue[]>([]);
-    const [loading, setLoading] = useState(false);
     const [delay, setDelay] = useState(1000);
 
-    const handleInputChange = (value: string) => {
-        debouncedSearch(value);
-    };
+    const { results, loading, handleInputChange } = useSearch<string>(
+        fetchMovies,
+        delay
+    );
 
-    const debouncedSearch = useDebounce(async (query: string) => {
-        if (query.length === 0) {
-            setOptions([]);
-            return;
-        }
-        setLoading(true);
-        const results = await fetchMovies({ query });
-        const options = results.map((title, index) => ({
-            value: title,
-            label: title,
-            key: String(index),
-        }));
-        setOptions(options);
-        setLoading(false);
-    }, delay);
+    const options: LabeledValue[] = results.map((title, index) => ({
+        value: title,
+        label: title,
+        key: String(index),
+    }));
 
     return (
         <div className={style.main}>
