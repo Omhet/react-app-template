@@ -1,8 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 
-module.exports = {
+const smp = new SpeedMeasurePlugin();
+
+const config = {
     entry: path.join(__dirname, 'src', 'index.tsx'),
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -62,3 +65,5 @@ module.exports = {
         timings: false,
     },
 };
+
+module.exports = smp.wrap(config);
