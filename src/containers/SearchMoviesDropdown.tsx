@@ -1,11 +1,7 @@
-import { Select } from 'antd';
+import { Input, Select } from 'antd';
 import { LabeledValue } from 'antd/lib/select';
-import React, {
-    FunctionComponent,
-    useCallback,
-    useEffect,
-    useState,
-} from 'react';
+import { debounce } from 'lodash-es';
+import React, { FunctionComponent, useCallback, useState } from 'react';
 
 export const fetchMovies = async ({
     query,
@@ -19,43 +15,51 @@ export const fetchMovies = async ({
     return data.results.map(({ title }: { title: string }) => title);
 };
 
+const useDebounce = (callback: (...args: any) => any, delay: number) =>
+    useCallback(debounce(callback, delay), [delay]);
+
 const Container: FunctionComponent = () => {
-    const [query, setQuery] = useState('');
     const [options, setOptions] = useState<LabeledValue[]>([]);
     const [loading, setLoading] = useState(false);
+    const [delay, setDelay] = useState(0);
 
-    const handleInputChange = useCallback((value: string) => {
-        setQuery(value);
-    }, []);
+    const handleInputChange = (value: string) => {
+        debouncedSearch(value);
+    };
 
-    useEffect(() => {
-        const searchMovies = async () => {
-            if (query.length === 0) {
-                return;
-            }
-            setLoading(true);
-            const results = await fetchMovies({ query });
-            const options = results.map((title, index) => ({
-                value: title,
-                label: title,
-                key: String(index),
-            }));
-            setOptions(options);
-            setLoading(false);
-        };
-        searchMovies();
-    }, [query]);
+    const debouncedSearch = useDebounce(async (query: string) => {
+        if (query.length === 0) {
+            setOptions([]);
+            return;
+        }
+        setLoading(true);
+        const results = await fetchMovies({ query });
+        const options = results.map((title, index) => ({
+            value: title,
+            label: title,
+            key: String(index),
+        }));
+        setOptions(options);
+        setLoading(false);
+    }, delay);
 
     return (
-        <Select
-            showSearch
-            placeholder="Search a movie"
-            style={{ width: 200 }}
-            loading={loading}
-            options={options}
-            value={query}
-            onSearch={handleInputChange}
-        />
+        <>
+            <Select
+                showSearch
+                placeholder="Search a movie"
+                style={{ width: 200 }}
+                loading={loading}
+                options={options}
+                onSearch={handleInputChange}
+            />
+            <Input
+                style={{ width: 200 }}
+                type="number"
+                value={delay}
+                onChange={(e) => setDelay(Number(e.target.value))}
+            />
+        </>
     );
 };
 
